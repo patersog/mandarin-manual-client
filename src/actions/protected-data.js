@@ -1,3 +1,6 @@
+
+/** THIS FILE IS FOR REFERENCE */
+
 import {
 	API_BASE_URL
 } from '../config';
