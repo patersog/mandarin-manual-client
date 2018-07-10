@@ -4,6 +4,8 @@ import {Link, Redirect} from 'react-router-dom';
 
 import LoginForm from './login-form';
 
+import './styles/landing-page.css';
+
 export function LandingPage(props) {
 	// If we are logged in redirect straight to the user's dashboard
 	if (props.loggedIn) {
@@ -12,7 +14,6 @@ export function LandingPage(props) {
 
 	return (
 		<div className="home">
-			<h2>Welcome to Foo App</h2>
 			<LoginForm />
 			<Link to="/register">Register</Link>
 		</div>

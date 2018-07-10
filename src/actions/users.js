@@ -10,6 +10,7 @@ import {
 } from './utils';
 
 export const registerUser = user => dispatch => {
+	console.log('TAG',user);
 	return fetch(`${API_BASE_URL}/users`, {
 		method: 'POST',
 		headers: {

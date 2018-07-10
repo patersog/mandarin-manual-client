@@ -11,11 +11,11 @@ import {
 } from './utils';
 
 import {
-	SET_AUTH_TOKEN,
 	CLEAR_AUTH,
 	AUTH_REQUEST,
 	AUTH_SUCCESS,
-	AUTH_ERROR
+	AUTH_ERROR,
+	SET_AUTH_TOKEN
 } from './action-types';
 
 // import {
