@@ -10,7 +10,6 @@ import {
 } from './utils';
 
 export const registerUser = user => dispatch => {
-	console.log('TAG',user);
 	return fetch(`${API_BASE_URL}/users`, {
 		method: 'POST',
 		headers: {
@@ -19,7 +18,10 @@ export const registerUser = user => dispatch => {
 		body: JSON.stringify(user)
 	})
 		.then(res => normalizeResponseErrors(res))
-		.then(res => res.json())
+		.then(res => {
+			console.log(res.json());
+			return res.json();
+		})
 		.catch(err => {
 			const {
 				reason,

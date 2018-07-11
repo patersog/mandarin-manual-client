@@ -18,11 +18,6 @@ import {
 	SET_AUTH_TOKEN
 } from './action-types';
 
-// import {
-// 	saveAuthToken,
-// 	clearAuthToken
-// } from '../local-storage';
-
 export const setAuthToken = authToken => ({
 	type: SET_AUTH_TOKEN,
 	authToken
@@ -116,6 +111,6 @@ export const refreshAuthToken = () => (dispatch, getState) => {
 			// them and sign us out
 			dispatch(authError(err));
 			dispatch(clearAuth());
-			// clearAuthToken(authToken);
+
 		});
 };

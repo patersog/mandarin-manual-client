@@ -1,11 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
+
+import SpacedRepetition from './spaced-repetition';
 import requiresLogin from './requires-login';
-import {fetchProtectedData} from '../actions/protected-data';
+import {fetchQuestion} from '../actions/questions';
 
 export class Dashboard extends React.Component {
 	componentDidMount() {
-		this.props.dispatch(fetchProtectedData());
+		console.log(this.props.current);
+		this.props.dispatch(fetchQuestion(this.props.current));
 	}
 
 	render() {
@@ -15,9 +18,7 @@ export class Dashboard extends React.Component {
                     Username: {this.props.username}
 				</div>
 				<div className="dashboard-name">Name: {this.props.name}</div>
-				<div className="dashboard-protected-data">
-                    Protected data: {this.props.protectedData}
-				</div>
+				<SpacedRepetition/>
 			</div>
 		);
 	}
@@ -27,8 +28,9 @@ const mapStateToProps = state => {
 	const {currentUser} = state.auth;
 	return {
 		username: state.auth.currentUser.username,
-		name: `${currentUser.firstName} ${currentUser.lastName}`,
-		protectedData: state.protectedData.data
+		name: `${currentUser.firstname} ${currentUser.lastname}`,
+		questions: state.auth.currentUser.questions,
+		current: state.auth.currentUser.questions.current
 	};
 };
 
