@@ -1,6 +1,8 @@
 import {
 	FETCH_QUESTION_SUCCESS,
-	FETCH_QUESTION_ERROR
+	FETCH_QUESTION_ERROR,
+	FETCH_ANSWER_SUCCESS,
+	FETCH_ANSWER_ERROR
 } from '../actions/action-types';
 
 const initialState = {
@@ -10,14 +12,25 @@ const initialState = {
 	error: null
 };
 
-export default function reducer(state = initialState, action) {
+export default function reducer(state=initialState, action) {
 	if (action.type === FETCH_QUESTION_SUCCESS) {
 		console.log(action);
 		return Object.assign({}, state, {
 			prompt: action.prompt,
 			error: null
 		});
+
 	} else if (action.type === FETCH_QUESTION_ERROR) {
+		return Object.assign({}, state, {
+			error: action.error
+		});
+
+	} else if (action.type === FETCH_ANSWER_SUCCESS) {
+		return Object.assign({}, state, {
+			correct: action.correct
+		});
+
+	} else if (action.type === FETCH_ANSWER_ERROR) {
 		return Object.assign({}, state, {
 			error: action.error
 		});

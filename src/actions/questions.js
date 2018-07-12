@@ -1,9 +1,5 @@
-import {
-	API_BASE_URL
-} from '../config';
-import {
-	normalizeResponseErrors
-} from './utils';
+import { API_BASE_URL } from '../config';
+import { normalizeResponseErrors } from './utils';
 import {
 	FETCH_QUESTION_REQUEST,
 	FETCH_QUESTION_SUCCESS,
@@ -59,18 +55,19 @@ export const fetchQuestion = username => (dispatch, getState) => {
 		.catch(err => dispatch(fetchQuestionsError(err)));
 };
 
-export const fetchAnswer = (answer,id) => (dispatch, getState) => {
+export const fetchAnswer = (answer, username) => (dispatch, getState) => {
 	const authToken = getState().auth.authToken;
 	dispatch(fetchQuestionRequest());
-	return fetch(`${API_BASE_URL}/questions/correct/${id}`, {
+	return fetch(`${API_BASE_URL}/questions/correct/${username}`, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${authToken}`
 		},
-		body: JSON.stringify(answer)
+		body: JSON.stringify(answer) // true or false
 	})
 		.then(res => normalizeResponseErrors(res))
 		.then(res => res.json())
 		.then(data => dispatch(fetchAnswerSuccess(data)))
 		.catch(err => dispatch(fetchAnswerError(err)));
 };
+
