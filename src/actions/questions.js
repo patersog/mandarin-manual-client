@@ -52,7 +52,10 @@ export const fetchQuestion = username => (dispatch, getState) => {
 	})
 		.then(res => normalizeResponseErrors(res))
 		.then(res => res.json())
-		.then(data => dispatch(fetchQuestionsSuccess(data)))
+		.then(({prompt}) => {
+			console.log('INSIDE FETCH QUESTION', prompt);
+			return dispatch(fetchQuestionsSuccess(prompt));
+		})
 		.catch(err => dispatch(fetchQuestionsError(err)));
 };
 
