@@ -18,7 +18,7 @@ export class Dashboard extends React.Component {
                     Username: {this.props.username}
 				</div>
 				<div className="dashboard-name">Name: {this.props.name}</div>
-				<SpacedRepetition/>
+				<SpacedRepetition prompt={this.props.prompt}/>
 			</div>
 		);
 	}
@@ -29,6 +29,7 @@ const mapStateToProps = state => {
 	return {
 		username: state.auth.currentUser.username,
 		name: `${currentUser.firstname} ${currentUser.lastname}`,
+		prompt: state.question.prompt
 	};
 };
 
