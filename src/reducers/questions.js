@@ -4,15 +4,16 @@ import {
 } from '../actions/action-types';
 
 const initialState = {
-	current: {},
-	list: {},
+	prompt: '',
+	correct: false,
+	loading: false,
 	error: null
 };
 
 export default function reducer(state = initialState, action) {
 	if (action.type === FETCH_QUESTION_SUCCESS) {
 		return Object.assign({}, state, {
-			question: action.question,
+			prompt: action.question,
 			error: null
 		});
 	} else if (action.type === FETCH_QUESTION_ERROR) {
@@ -22,3 +23,4 @@ export default function reducer(state = initialState, action) {
 	}
 	return state;
 }
+

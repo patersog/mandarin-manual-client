@@ -5,23 +5,46 @@ import {
 	normalizeResponseErrors
 } from './utils';
 import {
+	FETCH_QUESTION_REQUEST,
 	FETCH_QUESTION_SUCCESS,
-	FETCH_QUESTION_ERROR
+	FETCH_QUESTION_ERROR,
+	FETCH_ANSWER_SUCCESS,
+	FETCH_ANSWER_ERROR
 } from './action-types';
 
-export const fetchQuestionsSuccess = question => ({
+export const fetchQuestionRequest = () => ({
+	type: FETCH_QUESTION_REQUEST,
+	loading: true
+});
+
+export const fetchQuestionsSuccess = prompt => ({
 	type: FETCH_QUESTION_SUCCESS,
-	question
+	prompt,
+	loading: false
 });
 
 export const fetchQuestionsError = error => ({
 	type: FETCH_QUESTION_ERROR,
-	error
+	error,
+	loading: false
 });
 
-export const fetchQuestion = id => (dispatch, getState) => {
+export const fetchAnswerSuccess = correct => ({
+	type: FETCH_ANSWER_SUCCESS,
+	correct,
+	loading: false
+});
+
+export const fetchAnswerError = error => ({
+	type: FETCH_ANSWER_ERROR,
+	error,
+	loading: false
+});
+
+export const fetchQuestion = username => (dispatch, getState) => {
 	const authToken = getState().auth.authToken;
-	return fetch(`${API_BASE_URL}/questions/${id}`, {
+	dispatch(fetchQuestionRequest());
+	return fetch(`${API_BASE_URL}/questions/${username}`, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${authToken}`
@@ -31,4 +54,20 @@ export const fetchQuestion = id => (dispatch, getState) => {
 		.then(res => res.json())
 		.then(data => dispatch(fetchQuestionsSuccess(data)))
 		.catch(err => dispatch(fetchQuestionsError(err)));
+};
+
+export const fetchAnswer = (answer,id) => (dispatch, getState) => {
+	const authToken = getState().auth.authToken;
+	dispatch(fetchQuestionRequest());
+	return fetch(`${API_BASE_URL}/questions/correct/${id}`, {
+		method: 'GET',
+		headers: {
+			Authorization: `Bearer ${authToken}`
+		},
+		body: JSON.stringify(answer)
+	})
+		.then(res => normalizeResponseErrors(res))
+		.then(res => res.json())
+		.then(data => dispatch(fetchAnswerSuccess(data)))
+		.catch(err => dispatch(fetchAnswerError(err)));
 };

@@ -7,8 +7,8 @@ import {fetchQuestion} from '../actions/questions';
 
 export class Dashboard extends React.Component {
 	componentDidMount() {
-		console.log(this.props.current);
-		this.props.dispatch(fetchQuestion(this.props.current));
+		/** Should add a 'prompt' to the questions reducer state */
+		this.props.dispatch(fetchQuestion(this.props.username));
 	}
 
 	render() {
@@ -29,8 +29,6 @@ const mapStateToProps = state => {
 	return {
 		username: state.auth.currentUser.username,
 		name: `${currentUser.firstname} ${currentUser.lastname}`,
-		questions: state.auth.currentUser.questions,
-		current: state.auth.currentUser.questions.current
 	};
 };
 

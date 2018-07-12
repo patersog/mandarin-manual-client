@@ -47,7 +47,6 @@ const storeAuthInfo = (authToken, dispatch) => {
 	const decodedToken = jwtDecode(authToken);
 	dispatch(setAuthToken(authToken));
 	dispatch(authSuccess(decodedToken.user));
-	// saveAuthToken(authToken);
 };
 
 export const login = (username, password) => dispatch => {
@@ -65,7 +64,10 @@ export const login = (username, password) => dispatch => {
 		})
 		// Reject any requests which don't return a 200 status, creating
 		// errors which follow a consistent format
-			.then(res => normalizeResponseErrors(res))
+			.then(res => {
+				console.log('LOGGING IN', res);
+				return normalizeResponseErrors(res);
+			})
 			.then(res => res.json())
 			.then(({
 				authToken

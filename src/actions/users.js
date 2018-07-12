@@ -17,9 +17,11 @@ export const registerUser = user => dispatch => {
 		},
 		body: JSON.stringify(user)
 	})
-		.then(res => normalizeResponseErrors(res))
 		.then(res => {
-			console.log(res.json());
+			return normalizeResponseErrors(res);
+		})
+		.then(res => {
+			console.log('REGISTERED', res.json());
 			return res.json();
 		})
 		.catch(err => {
