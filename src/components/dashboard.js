@@ -17,8 +17,10 @@ export class Dashboard extends React.Component {
 				<div className="dashboard-username">
                     Username: {this.props.username}
 				</div>
-				<div className="dashboard-name">Name: {this.props.name}</div>
-				<SpacedRepetition prompt={this.props.prompt}/>
+				<div className="dashboard-name">
+                    Name: {this.props.name}
+				</div>
+				<SpacedRepetition />
 			</div>
 		);
 	}
