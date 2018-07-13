@@ -1,5 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import './styles/dashboard.css';
+
 
 import SpacedRepetition from './spaced-repetition';
 import requiresLogin from './requires-login';

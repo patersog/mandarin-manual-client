@@ -1,0 +1,29 @@
+.header-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 8em;
+    margin: 0 auto;
+}
+
+.header-bar h1 {
+    color: black;
+    font-size: 70px;
+}
+
+.logout-button {
+    position: absolute;
+    font-size: 15px;
+    right: 0;
+    background-color: white;
+    border: 1px solid black;
+    margin: 5px;
+}
+
+@media screen and (max-width: 900px) {
+    .header-bar h1 {
+        margin: auto;
+    }
+}
+
+@media screen and (orientation: landscape) {}
