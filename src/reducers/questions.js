@@ -2,7 +2,7 @@ import {
 	FETCH_QUESTION_SUCCESS,
 	FETCH_QUESTION_ERROR,
 	FETCH_ANSWER_SUCCESS,
-	FETCH_ANSWER_ERROR
+	FETCH_ANSWER_ERROR,
 } from '../actions/action-types';
 
 const initialState = {
@@ -10,7 +10,6 @@ const initialState = {
 	correct: false,
 	loading: false,
 	error: null,
-
 };
 
 export default function reducer(state=initialState, action) {

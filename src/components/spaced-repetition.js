@@ -1,16 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
 import requiresLogin from './requires-login';
-import { fetchQuestion, fetchAnswer } from '../actions/questions';
-// import Input from './input.js';
+import { fetchQuestion, fetchAnswer, updateQuestions } from '../actions/questions';
 
 export class SpacedRepetition extends React.Component {
 
 	constructor(props) {
 		super(props);
+
 		this.state = {
-			userInput: ''
+			userInput: '',
+			hasAnswered: false,
+			username: props.username
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,17 +21,16 @@ export class SpacedRepetition extends React.Component {
 
 	componentDidMount() {
 		/** Should add a 'prompt' to the questions reducer state */
-		this.props.dispatch(fetchQuestion(this.props.username));
-	}
-
-	componentWillReceiveProps() {
-
+		this.props.dispatch(fetchQuestion(this.state.username));
 	}
 
 	handleSubmit(e) {
 		e.preventDefault();
-		const {userInput} = this.state;
-		this.props.dispatch(fetchAnswer(userInput));
+		const {userInput, username} = this.state;
+		this.props.dispatch(fetchAnswer(userInput, username))
+			.then(() => {
+				this.setState({hasAnswered: true});
+			});
 	}
 
 	handleChange(e) {
@@ -39,10 +39,19 @@ export class SpacedRepetition extends React.Component {
 	}
 
 	nextQuestion() {
-		return this.props.dispatch(fetchQuestion(this.props.username));
+		const{username} = this.state;
+		return this.props.dispatch(updateQuestions(username))
+			.then(() => {
+				return this.setState({hasAnswered: false});
+			})
+			.then(() => {
+				this.props.dispatch(fetchQuestion(username));
+			});
 	}
 
 	render() {
+		const nextButton = this.state.hasAnswered
+			? <div><button type="button" onClick={this.nextQuestion}>next</button>{this.props.correct ?'Nice One!' : 'Incorrect'}</div> : undefined;
 		return (
 			<div>
 				<div>
@@ -55,7 +64,10 @@ export class SpacedRepetition extends React.Component {
 						Submit
 						</button>
 					</div>
+					{nextButton}
 				</form>
+				<div>
+				</div>
 			</div>
 		);
 	}

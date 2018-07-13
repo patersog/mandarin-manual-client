@@ -58,12 +58,27 @@ export const fetchQuestion = username => (dispatch, getState) => {
 export const fetchAnswer = (answer, username) => (dispatch, getState) => {
 	const authToken = getState().auth.authToken;
 	dispatch(fetchQuestionRequest());
-	return fetch(`${API_BASE_URL}/questions/correct/${username}`, {
+	return fetch(`${API_BASE_URL}/questions/correct/${username}?answer=${answer}`, {
 		method: 'GET',
 		headers: {
 			Authorization: `Bearer ${authToken}`
 		},
-		body: JSON.stringify(answer) // true or false
+	})
+		.then(res => normalizeResponseErrors(res))
+		.then(res => res.json())
+		.then(data => dispatch(fetchAnswerSuccess(data)))
+		.catch(err => dispatch(fetchAnswerError(err)));
+};
+
+export const updateQuestions = (username,correct) => (dispatch, getState) => {
+	const authToken = getState().auth.authToken;
+	dispatch(fetchQuestionRequest());
+	return fetch(`${API_BASE_URL}/questions/next/${username}`, {
+		method: 'PUT',
+		headers: {
+			Authorization: `Bearer ${authToken}`
+		},
+		body: JSON.stringify(correct)
 	})
 		.then(res => normalizeResponseErrors(res))
 		.then(res => res.json())
