@@ -30,6 +30,7 @@ export const fetchQuestionError = error => ({
 
 export const fetchAnswerSuccess = correct => ({
 	type: FETCH_ANSWER_SUCCESS,
+	hasAnswered: true,
 	correct,
 	loading: false
 });
@@ -42,7 +43,8 @@ export const fetchAnswerError = error => ({
 
 export const updateQuestionsRequest = () => ({
 	type: UPDATE_QUESTIONS_REQUEST,
-	loading: true
+	loading: true,
+	hasAnswered: false,
 });
 
 export const updateQuestionsError = error => ({
@@ -53,7 +55,7 @@ export const updateQuestionsError = error => ({
 
 export const updateQuestionsSuccess = () => ({
 	type: UPDATE_QUESTIONS_SUCCESS,
-	loading: false
+	hasAnswered: false,
 });
 
 export const fetchQuestion = username => (dispatch, getState) => {
@@ -85,7 +87,7 @@ export const fetchAnswer = (answer, username) => (dispatch, getState) => {
 	})
 		.then(res => normalizeResponseErrors(res))
 		.then(res => res.json())
-		.then(data => dispatch(fetchQuestionSuccess(data)))
+		.then(data => dispatch(fetchAnswerSuccess(data)))
 		.catch(err => dispatch(fetchAnswerError(err)));
 };
 

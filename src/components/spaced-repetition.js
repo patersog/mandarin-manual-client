@@ -7,30 +7,25 @@ export class SpacedRepetition extends React.Component {
 
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			userInput: '',
-			hasAnswered: false,
 			username: props.username
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-		this.nextQuestion = this.nextQuestion.bind(this);
+		this.getNextQuestion = this.getNextQuestion.bind(this);
 	}
 
 	componentDidMount() {
-		/** Should add a 'prompt' to the questions reducer state */
 		this.props.dispatch(fetchQuestion(this.state.username));
 	}
 
 	handleSubmit(e) {
 		e.preventDefault();
 		const {userInput, username} = this.state;
-		this.props.dispatch(fetchAnswer(userInput, username))
-			.then(() => {
-				this.setState({hasAnswered: true});
-			});
+		this.props.dispatch(fetchAnswer(userInput, username));
+		this.setState({userInput: ''});
 	}
 
 	handleChange(e) {
@@ -38,25 +33,19 @@ export class SpacedRepetition extends React.Component {
 		this.setState({userInput});
 	}
 
-	nextQuestion() {
+	getNextQuestion() {
 		const{username} = this.state;
 		const {correct} = this.props;
-		console.log('correct', correct);
 		this.props.dispatch(updateQuestions(username, correct))
-			.then(() => {
-				this.setState({hasAnswered: false});
-				return;
-			})
 			.then(() => {
 				console.log('fetching next question...');
 				this.props.dispatch(fetchQuestion(username));
-				return;
 			});
 	}
 
 	render() {
-		const nextButton = this.state.hasAnswered
-			? <div><button type="button" onClick={this.nextQuestion}>next</button>{this.props.correct ?'Nice One!' : 'Incorrect'}</div> : undefined;
+		const nextButton = this.props.hasAnswered
+			? <div><button type="button" onClick={this.getNextQuestion}>next</button>{this.props.correct ?'Nice One!' : 'Incorrect'}</div> : undefined;
 		return (
 			<div>
 				<div>
@@ -82,6 +71,7 @@ const mapStateToProps = state => {
 	return {
 		prompt: state.question.prompt,
 		correct: state.question.correct,
+		hasAnswered: state.question.hasAnswered,
 		isLoading: state.question.loading,
 		error: state.question.error,
 	};

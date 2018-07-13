@@ -11,6 +11,7 @@ import {
 
 const initialState = {
 	prompt: '',
+	hasAnswered: false,
 	correct: false,
 	loading: false,
 	error: null,
@@ -33,12 +34,13 @@ export default function reducer(state=initialState, action) {
 			loading: action.loading
 		});
 	} else if (action.type === FETCH_ANSWER_SUCCESS) {
+		console.log('FETCHED ANSWER',action);
 		return Object.assign({}, state, {
 			correct: action.correct,
 			loading: action.loading,
+			hasAnswered: action.hasAnswered,
 			error: null
 		});
-
 	} else if (action.type === FETCH_ANSWER_ERROR) {
 		return Object.assign({}, state, {
 			error: action.error,
@@ -47,6 +49,7 @@ export default function reducer(state=initialState, action) {
 	} else if (action.type === UPDATE_QUESTIONS_REQUEST) {
 		return Object.assign({}, state, {
 			loading: action.loading,
+			hasAnswered: action.hasAnswered
 		});
 	} else if (action.type === UPDATE_QUESTIONS_SUCCESS) {
 		return Object.assign({}, state, {
