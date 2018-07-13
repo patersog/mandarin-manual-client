@@ -40,12 +40,17 @@ export class SpacedRepetition extends React.Component {
 
 	nextQuestion() {
 		const{username} = this.state;
-		return this.props.dispatch(updateQuestions(username))
+		const {correct} = this.props;
+		console.log('correct', correct);
+		this.props.dispatch(updateQuestions(username, correct))
 			.then(() => {
-				return this.setState({hasAnswered: false});
+				this.setState({hasAnswered: false});
+				return;
 			})
 			.then(() => {
+				console.log('fetching next question...');
 				this.props.dispatch(fetchQuestion(username));
+				return;
 			});
 	}
 

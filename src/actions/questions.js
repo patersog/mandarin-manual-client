@@ -5,7 +5,10 @@ import {
 	FETCH_QUESTION_SUCCESS,
 	FETCH_QUESTION_ERROR,
 	FETCH_ANSWER_SUCCESS,
-	FETCH_ANSWER_ERROR
+	FETCH_ANSWER_ERROR,
+	UPDATE_QUESTIONS_SUCCESS,
+	UPDATE_QUESTIONS_ERROR,
+	UPDATE_QUESTIONS_REQUEST,
 } from './action-types';
 
 export const fetchQuestionRequest = () => ({
@@ -37,6 +40,22 @@ export const fetchAnswerError = error => ({
 	loading: false
 });
 
+export const updateQuestionsRequest = () => ({
+	type: UPDATE_QUESTIONS_REQUEST,
+	loading: true
+});
+
+export const updateQuestionsError = error => ({
+	type: UPDATE_QUESTIONS_ERROR,
+	error,
+	loading: false
+});
+
+export const updateQuestionsSuccess = () => ({
+	type: UPDATE_QUESTIONS_SUCCESS,
+	loading: false
+});
+
 export const fetchQuestion = username => (dispatch, getState) => {
 	const authToken = getState().auth.authToken;
 	dispatch(fetchQuestionRequest());
@@ -49,7 +68,7 @@ export const fetchQuestion = username => (dispatch, getState) => {
 		.then(res => normalizeResponseErrors(res))
 		.then(res => res.json())
 		.then(({prompt}) => {
-			console.log('INSIDE FETCH QUESTION', prompt);
+			//console.log('INSIDE FETCH QUESTION', prompt);
 			return dispatch(fetchQuestionSuccess(prompt));
 		})
 		.catch(err => dispatch(fetchQuestionError(err)));
@@ -66,22 +85,23 @@ export const fetchAnswer = (answer, username) => (dispatch, getState) => {
 	})
 		.then(res => normalizeResponseErrors(res))
 		.then(res => res.json())
-		.then(data => dispatch(fetchAnswerSuccess(data)))
+		.then(data => dispatch(fetchQuestionSuccess(data)))
 		.catch(err => dispatch(fetchAnswerError(err)));
 };
 
-export const updateQuestions = (username,correct) => (dispatch, getState) => {
+export const updateQuestions = (username, correct) => (dispatch, getState) => {
 	const authToken = getState().auth.authToken;
-	dispatch(fetchQuestionRequest());
+	dispatch(updateQuestionsRequest());
 	return fetch(`${API_BASE_URL}/questions/next/${username}`, {
 		method: 'PUT',
 		headers: {
-			Authorization: `Bearer ${authToken}`
+			'Authorization': `Bearer ${authToken}`,
+			'Content-Type': 'application/json; charset=utf-8'
 		},
-		body: JSON.stringify(correct)
+		body: JSON.stringify({correct: correct})
 	})
 		.then(res => normalizeResponseErrors(res))
 		.then(res => res.json())
-		.then(data => dispatch(fetchAnswerSuccess(data)))
-		.catch(err => dispatch(fetchAnswerError(err)));
+		.then(() => dispatch(updateQuestionsSuccess()))
+		.catch(err => dispatch(updateQuestionsError(err)));
 };
