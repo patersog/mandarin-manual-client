@@ -11,9 +11,13 @@ body {
     background-size: cover;
 }
 
-.register-button {
+.login-button, .register-button {
     font-size: .85em;
     padding: 5px;
     color: white;
     text-decoration: none;
+}
+
+button {
+    margin: 10px auto 0;
 }
