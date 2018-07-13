@@ -29,14 +29,16 @@ export default function reducer(state=initialState, action) {
 
 	} else if (action.type === FETCH_ANSWER_SUCCESS) {
 		return Object.assign({}, state, {
-			correct: action.correct
+			correct: action.correct,
+			loading: action.loading,
+			error: null
 		});
 
 	} else if (action.type === FETCH_ANSWER_ERROR) {
 		return Object.assign({}, state, {
-			error: action.error
+			error: action.error,
+			loading: action.loading
 		});
 	}
 	return state;
 }
-
