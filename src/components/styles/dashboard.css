@@ -1,3 +1,6 @@
+.dashboard {
+    margin: 40px auto;
+}
 
 .form-input label {
     display: block;
@@ -9,6 +12,7 @@
 }
 
 .form-button {
+    display: inline-block;
     color: black;
     width: 100px;
     height: 10px;

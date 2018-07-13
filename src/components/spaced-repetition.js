@@ -51,10 +51,10 @@ export class SpacedRepetition extends React.Component {
 				<div>
 					{this.props.isLoading ? <p>Loading</p> : <p> Question: {this.props.prompt} </p>}
 				</div>
-				<form onSubmit={this.handleSubmit}>
+				<form className='form-input' onSubmit={this.handleSubmit}>
 					<div>
 						<label><input id='text-input' type='text' title='answer' onChange={this.handleChange}/></label>
-						<button type='submit' onClick={this.onSubmit}>
+						<button  className='login-button' type='submit' onClick={this.onSubmit}>
 						Submit
 						</button>
 					</div>

@@ -14,8 +14,9 @@ body {
 .login-button, .register-button {
     font-size: .85em;
     padding: 5px;
-    color: white;
+    color: black;
     text-decoration: none;
+    border-color: rgb(186,186,186);
 }
 
 button {
