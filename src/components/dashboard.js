@@ -3,14 +3,8 @@ import {connect} from 'react-redux';
 
 import SpacedRepetition from './spaced-repetition';
 import requiresLogin from './requires-login';
-import {fetchQuestion} from '../actions/questions';
 
 export class Dashboard extends React.Component {
-	componentDidMount() {
-		/** Should add a 'prompt' to the questions reducer state */
-		this.props.dispatch(fetchQuestion(this.props.username));
-	}
-
 	render() {
 		return (
 			<div className="dashboard">
@@ -20,7 +14,7 @@ export class Dashboard extends React.Component {
 				<div className="dashboard-name">
                     Name: {this.props.name}
 				</div>
-				<SpacedRepetition />
+				<SpacedRepetition username={this.props.username} />
 			</div>
 		);
 	}
@@ -31,7 +25,6 @@ const mapStateToProps = state => {
 	return {
 		username: state.auth.currentUser.username,
 		name: `${currentUser.firstname} ${currentUser.lastname}`,
-		prompt: state.question.prompt
 	};
 };
 

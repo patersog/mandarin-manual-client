@@ -15,6 +15,7 @@ const initialState = {
 
 export default function reducer(state=initialState, action) {
 	if (action.type === FETCH_QUESTION_SUCCESS) {
+		console.log(action);
 		return Object.assign({}, state, {
 			prompt: action.prompt,
 			loading: action.loading,

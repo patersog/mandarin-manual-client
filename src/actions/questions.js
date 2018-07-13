@@ -13,13 +13,13 @@ export const fetchQuestionRequest = () => ({
 	loading: true
 });
 
-export const fetchQuestionsSuccess = prompt => ({
+export const fetchQuestionSuccess = prompt => ({
 	type: FETCH_QUESTION_SUCCESS,
 	prompt,
 	loading: false
 });
 
-export const fetchQuestionsError = error => ({
+export const fetchQuestionError = error => ({
 	type: FETCH_QUESTION_ERROR,
 	error,
 	loading: false
@@ -50,9 +50,9 @@ export const fetchQuestion = username => (dispatch, getState) => {
 		.then(res => res.json())
 		.then(({prompt}) => {
 			console.log('INSIDE FETCH QUESTION', prompt);
-			return dispatch(fetchQuestionsSuccess(prompt));
+			return dispatch(fetchQuestionSuccess(prompt));
 		})
-		.catch(err => dispatch(fetchQuestionsError(err)));
+		.catch(err => dispatch(fetchQuestionError(err)));
 };
 
 export const fetchAnswer = (answer, username) => (dispatch, getState) => {
