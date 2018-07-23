@@ -4,11 +4,12 @@
     justify-content: space-between;
     height: 8em;
     margin: 0 auto;
+    font-size: 100%;
 }
 
 .header-bar h1 {
     color: black;
-    font-size: 70px;
+    font-size: 4em;
 }
 
 .logout-button {
@@ -16,7 +17,7 @@
     font-size: 15px;
     right: 0;
     background-color: white;
-    border-color: rgb(186, 186, 186);
+    border-color: #FFFFFF;
     margin: 5px;
 }
 
@@ -27,3 +28,4 @@
 }
 
 @media screen and (orientation: landscape) {}
+

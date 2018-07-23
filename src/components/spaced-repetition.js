@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import requiresLogin from './requires-login';
 import { fetchQuestion, fetchAnswer, updateQuestions } from '../actions/questions';
+import './styles/header-bar.css';
 
 export class SpacedRepetition extends React.Component {
 
@@ -45,7 +46,7 @@ export class SpacedRepetition extends React.Component {
 
 	render() {
 		const nextButton = this.props.hasAnswered
-			? <div><button type="button" onClick={this.getNextQuestion}>next</button>{this.props.correct ?'Nice One!' : 'Incorrect'}</div> : undefined;
+			? <div><button  className='next-button' type="button" onClick={this.getNextQuestion}>next</button>{this.props.correct ?'Nice One!' : 'Incorrect'}</div> : undefined;
 		return (
 			<div>
 				<div>
