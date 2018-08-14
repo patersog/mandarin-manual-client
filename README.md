@@ -8,6 +8,8 @@ The more you answer questions correctly, the more you will be able to learn!💪
 
 Whether traveling in a new land, or meeting a new friend 😉, we hope that the Mandarin Manual will serve(r) you well.
 
+[The Server](https://github.com/patersog/mandarin-manual-server)
+
 ## Tech Stack
 
 [React](https://reactjs.org/)
