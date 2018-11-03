@@ -1,6 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {Link, Redirect} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 
 import LoginForm from './login-form';
 
@@ -15,7 +15,7 @@ export function LandingPage(props) {
 	return (
 		<div className="home">
 			<LoginForm />
-			<Link  className='register-button' to="/register">Register</Link>
+			<Link className='register-button' to="/register">Register</Link>
 		</div>
 	);
 }

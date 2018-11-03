@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import requiresLogin from './requires-login';
 import { fetchQuestion, fetchAnswer, updateQuestions } from '../actions/questions';
 import './styles/header-bar.css';
@@ -24,19 +24,19 @@ export class SpacedRepetition extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		const {userInput, username} = this.state;
+		const { userInput, username } = this.state;
 		this.props.dispatch(fetchAnswer(userInput, username));
-		this.setState({userInput: ''});
+		this.setState({ userInput: '' });
 	}
 
 	handleChange(e) {
 		const userInput = e.target.value;
-		this.setState({userInput});
+		this.setState({ userInput });
 	}
 
 	getNextQuestion() {
-		const{username} = this.state;
-		const {correct} = this.props;
+		const { username } = this.state;
+		const { correct } = this.props;
 		this.props.dispatch(updateQuestions(username, correct))
 			.then(() => {
 				console.log('fetching next question...');
@@ -46,7 +46,7 @@ export class SpacedRepetition extends React.Component {
 
 	render() {
 		const nextButton = this.props.hasAnswered
-			? <div><button  className='next-button' type="button" onClick={this.getNextQuestion}>next</button>{this.props.correct ?'Nice One!' : 'Incorrect'}</div> : undefined;
+			? <div><button className='next-button' type="button" onClick={this.getNextQuestion}>next</button>{this.props.correct ? 'Nice One!' : 'Incorrect'}</div> : undefined;
 		return (
 			<div>
 				<div>
@@ -54,9 +54,9 @@ export class SpacedRepetition extends React.Component {
 				</div>
 				<form className='form-input' onSubmit={this.handleSubmit}>
 					<div>
-						<label><input id='text-input' type='text' title='answer' onChange={this.handleChange}/></label>
-						<button  className='login-button' type='submit' onClick={this.onSubmit}>
-						Submit
+						<label><input id='text-input' type='text' title='answer' onChange={this.handleChange} /></label>
+						<button className='login-button' type='submit' onClick={this.onSubmit}>
+              Submit
 						</button>
 					</div>
 					{nextButton}

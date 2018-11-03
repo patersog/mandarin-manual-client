@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import './styles/dashboard.css';
 
 
@@ -11,10 +11,10 @@ export class Dashboard extends React.Component {
 		return (
 			<div className="dashboard">
 				<div className="dashboard-username">
-                    Username: {this.props.username}
+          Username: {this.props.username}
 				</div>
 				<div className="dashboard-name">
-                    Name: {this.props.name}
+          Name: {this.props.name}
 				</div>
 				<SpacedRepetition username={this.props.username} />
 			</div>
@@ -23,7 +23,7 @@ export class Dashboard extends React.Component {
 }
 
 const mapStateToProps = state => {
-	const {currentUser} = state.auth;
+	const { currentUser } = state.auth;
 	return {
 		username: state.auth.currentUser.username,
 		name: `${currentUser.firstname} ${currentUser.lastname}`,

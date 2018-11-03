@@ -17,7 +17,7 @@ const initialState = {
 	error: null,
 };
 
-export default function reducer(state=initialState, action) {
+export default function reducer(state = initialState, action) {
 	if (action.type === FETCH_QUESTION_REQUEST) {
 		return Object.assign({}, state, {
 			loading: action.loading,
@@ -34,7 +34,7 @@ export default function reducer(state=initialState, action) {
 			loading: action.loading
 		});
 	} else if (action.type === FETCH_ANSWER_SUCCESS) {
-		console.log('FETCHED ANSWER',action);
+		console.log('FETCHED ANSWER', action);
 		return Object.assign({}, state, {
 			correct: action.correct,
 			loading: action.loading,
